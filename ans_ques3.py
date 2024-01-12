@@ -2,6 +2,7 @@ class Department:
     def __init__(self, name):
         self.name = name
         self.manager = None
+        self.employees = {}
 
 class Employee:
     def __init__(self, name, title):
@@ -24,6 +25,7 @@ class Organization:
         employee = Employee(employee_name, title)
         employee.department = department
         department.manager = employee
+        department.employees[employee_name] = employee
         self.employees[employee_name] = employee
         return employee
 
@@ -31,7 +33,7 @@ class Organization:
         chart = "President: " + self.president.name + "\n"
         for department_name, department in self.departments.items():
             chart += "\tVice President " + department_name + ": " + department.manager.name + "\n"
-            for employee in department.manager.department.employees.values():
+            for employee_name, employee in department.employees.items():
                 chart += "\t\t" + employee.title + ": " + employee.name + "\n"
         return chart
 
